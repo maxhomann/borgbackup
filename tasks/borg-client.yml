@@ -30,6 +30,9 @@
     marker: "### {mark} ANSIBLE MANAGED BLOCK {{ item.fqdn }} ###"
     content: |
       Host {{ item.fqdn }}
+        {% if item.is_local is defined %}
+        HostName {{ hostvars[item.fqdn]['ansible_default_ipv4']['address'] }}
+        {% endif %}
         StrictHostKeyChecking no
         IdentityFile {{ borgbackup_ssh_key }}
         {% if item.port is defined %}

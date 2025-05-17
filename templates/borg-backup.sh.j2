@@ -5,7 +5,7 @@
 {% if b.type == 'hetzner'%}
 ssh://{{ b.user }}@{{ b.fqdn }}:23/./{{ b.home }}/{{ b.pool }}/{{ h }}
 {%- else %}
-{{ b.user }}@{{ b.fqdn }}:{{ b.home }}/{{ b.pool }}/{{ h }}
+{{ b.user }}@{% if b.is_local is defined %}{{ hostvars[b.fqdn]['ansible_default_ipv4']['address'] }}{%- else %}{{ b.fqdn }}{% endif %}:{{ b.home }}/{{ b.pool }}/{{ h }}
 {%- endif %}
 {% endmacro -%}
 {% macro is_for_me(b, p) %}
