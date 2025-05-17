@@ -54,13 +54,13 @@ provisioner:
           - fqdn: multiple-server-debian-11
             user: borgdj
             type: normal
-            home: /var/backup/
+            home: /var/backup
             pool: repos
             options: ""
           - fqdn: multiple-server-ubuntu-focal
             user: borgux
             type: normal
-            home: /var/backup/
+            home: /var/backup
             pool: repos
             options: ""
         borgbackup_include:

@@ -29,7 +29,7 @@ borgbackup_servers:
     fqdn: backup1.fiaas.co
     user: borgbackup
     type: normal
-    home: /backup/
+    home: /backup
     pool: repos
     options: ""
   - id: rsync
@@ -55,7 +55,6 @@ borgbackup_retention:
   monthly: 6
   yearly: 1
 ```
-*WARNING: the trailing / in item.home is required.*
 
 Define a borg\_passphrase for every host.
 host\_vars\client1:

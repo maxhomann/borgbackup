@@ -8,9 +8,9 @@ if [ "$1" = "verify" ]
   then
 {% for b in borgbackup_servers %}
 {% if b.type == 'hetzner' %}
-    REPOSITORY=ssh://{{ b.user }}@{{ b.fqdn }}:23/./{{ b.home }}{{ b.pool }}/{{ inventory_hostname }}
+    REPOSITORY=ssh://{{ b.user }}@{{ b.fqdn }}:23/./{{ b.home }}/{{ b.pool }}/{{ inventory_hostname }}
 {% else %}
-    REPOSITORY={{ b.user }}@{{ b.fqdn }}:{{ b.home }}{{ b.pool }}/{{ inventory_hostname }}
+    REPOSITORY={{ b.user }}@{{ b.fqdn }}:{{ b.home }}/{{ b.pool }}/{{ inventory_hostname }}
 {% endif %}
     printf "verifying on {{ b.fqdn }} :\n"
     borg extract --list --dry-run $REPOSITORY::$last_backup root/sample.txt
@@ -22,9 +22,9 @@ if [ "$1" = "restore" ]
     file="$2"
 {% for b in borgbackup_servers %}
 {% if b.type == 'hetzner' %}
-    REPOSITORY=ssh://{{ b.user }}@{{ b.fqdn }}:23/./{{ b.home }}{{ b.pool }}/{{ inventory_hostname }}
+    REPOSITORY=ssh://{{ b.user }}@{{ b.fqdn }}:23/./{{ b.home }}/{{ b.pool }}/{{ inventory_hostname }}
 {% else %}
-    REPOSITORY={{ b.user }}@{{ b.fqdn }}:{{ b.home }}{{ b.pool }}/{{ inventory_hostname }}
+    REPOSITORY={{ b.user }}@{{ b.fqdn }}:{{ b.home }}/{{ b.pool }}/{{ inventory_hostname }}
 {% endif %}
     rm -rf /root/restore/{{ b.fqdn }}
     mkdir -p /root/restore/{{ b.fqdn }}

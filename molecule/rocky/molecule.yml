@@ -57,7 +57,7 @@ provisioner:
           - fqdn: rocky-server-rocky-8
             user: borgds
             type: normal
-            home: /var/backup/
+            home: /var/backup
             pool: repos
             options: ""
         borgbackup_retention:

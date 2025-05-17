@@ -5,9 +5,7 @@
     shell: "/bin/bash"
     home: "{{ item.home }}"
     createhome: "yes"
-  delegate_to: "{{ item.fqdn }}"
   with_items: "{{ borgbackup_servers }}"
-  run_once: true
   when: item.type == 'normal'
 
 - name: server | set permissions
@@ -15,17 +13,15 @@
     dest: "{{ item.home }}"
     owner: "{{ item.user }}"
     group: "{{ item.user }}"
-  delegate_to: "{{ item.fqdn }}"
   with_items: "{{ borgbackup_servers }}"
   when: item.type == 'normal'
 
 - name: server | create directories
   file:
-    path: "{{ item.home }}{{ item.pool }}"
+    path: "{{ item.home }}/{{ item.pool }}"
     state: "directory"
     owner: "{{ item.user }}"
     group: "{{ item.user }}"
     mode: "0770"
-  delegate_to: "{{ item.fqdn }}"
   with_items: "{{ borgbackup_servers }}"
   when: item.type == 'normal'

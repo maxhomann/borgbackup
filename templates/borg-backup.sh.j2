@@ -3,9 +3,9 @@
 
 {% macro repository(b, h) %}
 {% if b.type == 'hetzner'%}
-ssh://{{ b.user }}@{{ b.fqdn }}:23/./{{ b.home }}{{ b.pool }}/{{ h }}
+ssh://{{ b.user }}@{{ b.fqdn }}:23/./{{ b.home }}/{{ b.pool }}/{{ h }}
 {%- else %}
-{{ b.user }}@{{ b.fqdn }}:{{ b.home }}{{ b.pool }}/{{ h }}
+{{ b.user }}@{{ b.fqdn }}:{{ b.home }}/{{ b.pool }}/{{ h }}
 {%- endif %}
 {% endmacro -%}
 {% macro is_for_me(b, p) %}
@@ -69,7 +69,9 @@ if [ "$1" = "init" ]; then
     if [ -z "$2" ] || {{ is_for_me(b, '$2')}}; then
         echo "Initialise repo on {{ b.fqdn }} :"
         REPOSITORY="{{ repository(b, inventory_hostname) }}"
-        {{ borgbackup_binary }} init -v {{ b.options }} --encryption {{ borgbackup_encryption_mode }}{% if borgbackup_appendonly_repoconfig %} --append-only{% endif %} $REPOSITORY
+        if ! {{ borgbackup_binary }} init -v {{ b.options }} --encryption {{ borgbackup_encryption_mode }}{% if borgbackup_appendonly_repoconfig %} --append-only{% endif %} $REPOSITORY; then
+          exit 1
+        fi
     fi
 {% endfor %}
     exit 0

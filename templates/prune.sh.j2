@@ -3,9 +3,9 @@
 
 {% macro repository(b, h) %}
 {% if b.type == 'hetzner'%}
-ssh://{{ b.user }}@{{ b.fqdn }}:23/./{{ b.home }}{{ b.pool }}/{{ h }}
+ssh://{{ b.user }}@{{ b.fqdn }}:23/./{{ b.home }}/{{ b.pool }}/{{ h }}
 {%- else %}
-{{ b.user }}@{{ b.fqdn }}:{{ b.home }}{{ b.pool }}/{{ h }}
+{{ b.user }}@{{ b.fqdn }}:{{ b.home }}/{{ b.pool }}/{{ h }}
 {%- endif %}
 {% endmacro -%}
 

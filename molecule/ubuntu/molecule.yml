@@ -51,7 +51,7 @@ provisioner:
           - fqdn: ubuntu-server-ubuntu-focal
             user: borgds
             type: normal
-            home: /var/backup/
+            home: /var/backup
             pool: repos
             options: ""
         borgbackup_retention:

@@ -51,7 +51,7 @@ provisioner:
           - fqdn: default-server-debian-11
             user: borgds
             type: normal
-            home: /var/backup/
+            home: /var/backup
             pool: repos
             options: ""
         borgbackup_retention:
